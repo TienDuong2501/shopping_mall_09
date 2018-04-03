@@ -27,9 +27,18 @@
                     <h1 class="text-center">{{productDiscounts.product_name}}</h1>
                     <div style="text-align: center">
                         <button class="btn_color_img" 
-                        v-for="attr in productAttributes" 
+                        v-for="attr in colors" 
                         :style="{ background: attr.color_name, width:obj.width, height:obj.height}"
                         @click="getColorId(attr)"></button>
+                    </div>
+                    <br>
+                    <div :style="{textAlign : 'center'}">
+                        <strong v-for="size in sizes">
+                            <input type="checkbox" 
+                            :style="{ width: '20px', height:'20px'}" 
+                            :value="size.size_name"> 
+                            <b>{{ size.size_name }}</b>
+                        </strong>
                     </div>
                     </p>
                     <p class="price">
@@ -50,9 +59,18 @@
                     <h1 class="text-center">{{productDiscounts.product_name}}</h1>
                     <div style="text-align: center">
                         <button class="btn_color_img" 
-                        v-for="attr in productAttributes" 
+                        v-for="attr in colors" 
                         :style="{ background: attr.color_name, width:obj.width, height:obj.height}"
                         @click="getColorId(attr)"></button>
+                    </div>
+                    <br>
+                    <div :style="{textAlign : 'center'}">
+                        <strong v-for="size in sizes">
+                            <input type="checkbox" 
+                            :style="{ width: '20px', height:'20px'}" 
+                            :value="size.size_name"> 
+                            <b>{{ size.size_name }}</b>
+                        </strong>
                     </div>
                     </p>
                     <p class="price">
@@ -195,6 +213,8 @@
                     width: '80px',
                     height: '40px',
                 },
+                sizes : [],
+                colors : [],
                 image : 'images/',
                 route: 'http://localhost:8000/customer/products/',
             }
@@ -209,7 +229,6 @@
             getDiscount(){
                 axios.get('/customer/getDiscount/' + this.productId)
                 .then(response => {
-                    console.log(response)
                     this.productDiscounts = response.data.productDiscount;
                 })
                 .catch(error=>{
@@ -220,7 +239,7 @@
             getAttribute(){
                 axios.get('/customer/getAttribute/' + this.productId)
                 .then(response=>{
-                    this.productAttributes = response.data.productAttribute;
+                    this.colors = response.data.productColor;
                 })
                 .catch(error=>{
                     console.log(error);
@@ -228,9 +247,10 @@
             },
 
             getColorId(attr){
-                axios.get('/customer/getColor/'+this.productId+'/'+attr.color_id)
+                axios.get('/customer/getColor/'+this.productId+'/'+attr.id)
                 .then(response=>{
-                    this.productImages = response.data;
+                    this.productImages = response.data.images;
+                    this.sizes = response.data.size;
                 })
                 .catch(error=>{
                     console.log(error);

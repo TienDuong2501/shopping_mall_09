@@ -25,7 +25,7 @@ class CategoryRepository implements CategoryInterfaceRepository
         $category = new Category();
         $check = Category::where([
             'category_name' => $input['category_name'],
-            'parent_id' => $input['parent_id']
+            'parent_id' => $input['parent_id'],
         ])->get();
         if (count($check)) {
             return response()->json(['fail' => 'the category is already exists.Please choose another name!']);
@@ -44,7 +44,7 @@ class CategoryRepository implements CategoryInterfaceRepository
         $category = Category::findOrFail($id);
         $check = Category::where([
             'category_name' => $input['category_name'],
-            'parent_id' => $input['parent_id']
+            'parent_id' => $input['parent_id'],
         ])->get();
         if (count($check)) {
             return response()->json(['fail' => 'can not updated, the category is already exists']);

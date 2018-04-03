@@ -26,6 +26,7 @@ import discountproducts from './components/discountProducts/discountProducts.vue
 import hotproduct from './components/products/hotProduct.vue';
 import allproduct from './components/products/allProduct.vue';
 import detailproduct from './components/products/DetailProduct.vue';
+import homeadmin from './components/home/homeAdmin.vue';
 
 const app = new Vue({
     el: '#app',
@@ -40,6 +41,7 @@ const app = new Vue({
         discountproducts,
         hotproduct,
         allproduct,
-        detailproduct
+        detailproduct,
+        homeadmin
     }
 });

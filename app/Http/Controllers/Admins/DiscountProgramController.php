@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDiscountPrograms;
 use App\Repositories\InterfaceRepository\DiscountProgramInterface;
 
-
 class DiscountProgramController extends Controller
 {
     /**
@@ -69,6 +68,6 @@ class DiscountProgramController extends Controller
      */
     public function destroy($id)
     {
-       return $this->discountProgramRepository->destroy($id);
+        return $this->discountProgramRepository->destroy($id);
     }
 }

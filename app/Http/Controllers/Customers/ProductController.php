@@ -29,7 +29,6 @@ class ProductController extends Controller
 
     public function show($id)
     {
-
         return view('customers.detailProduct', compact('id'));
     }
 
@@ -57,16 +56,12 @@ class ProductController extends Controller
 
     public function getAttribute($id)
     {
-        $productAttribute = $this->productRepository->getAttribute($id);
-
-        return response()->json(['productAttribute' => $productAttribute]);
+        return $this->productRepository->getAttribute($id);
     }
 
     public function getColor($id, $colorId)
     {
-        $images = $this->productRepository->getColor($id, $colorId);
-
-        return $images;
+        return $this->productRepository->getColor($id, $colorId);
     }
 
     public function relatedProduct($id)

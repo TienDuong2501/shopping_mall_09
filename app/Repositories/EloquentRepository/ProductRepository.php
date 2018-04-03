@@ -52,7 +52,6 @@ class ProductRepository implements ProductInterfaceRepository
         } else {
             return response()->json(['fail' => 'the product is already exits']);
         }
-        
     }
 
     public function update(array $input, $id)
@@ -156,13 +155,14 @@ class ProductRepository implements ProductInterfaceRepository
 
     public function getAttribute($id)
     {
-        $productAttribute = DB::table('product_attributes')
+        $productColors = DB::table('product_attributes')
                             ->join('colors', 'product_attributes.color_id', 'colors.id')
-                            ->select('product_attributes.*', 'colors.color_name')
+                            ->select('colors.*')
                             ->where(['product_attributes.product_id' => $id])
+                            ->distinct()
                             ->get();
 
-        return $productAttribute;
+        return response()->json(['productColor' => $productColors]);
     }
     
     public function getColor($id, $colorId)
@@ -173,8 +173,16 @@ class ProductRepository implements ProductInterfaceRepository
         ])->first();
 
         $images = Images::where(['product_color_id' => $productColors->id])->get();
+        $size = DB::table('product_attributes')
+                ->join('sizes', 'product_attributes.size_id', 'sizes.id')
+                ->select('product_attributes.*', 'sizes.size_name')
+                ->where([
+                    'product_attributes.product_id' => $id,
+                    'product_attributes.color_id' => $colorId,
+                ])
+                ->get();
 
-        return $images;
+        return response()->json(['images' => $images, 'size' => $size]);
     }
 
     public function relatedProduct($id)

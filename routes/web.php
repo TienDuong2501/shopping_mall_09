@@ -17,39 +17,7 @@ Auth::routes();
 
 Route::get('verify/{email}/{verify_token}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
 
-Route::resource('admin/category', 'Admins\CategoryController');
-Route::get('admin/vueCategory', 'Admins\CategoryController@showVueCategory')->name('indexCategory');
-Route::get('admin/getAllCategory', 'Admins\CategoryController@getAllCategory');
 
-Route::get('admin', function(){
-    return view('admin.master');
-});
-
-Route::resource('admin/products', 'Admins\ProductController');
-Route::get('admin/vueProducts', 'Admins\ProductController@showVueProduct')->name('indexProducts');
-Route::get('admin/products/addColors/{id}', 'Admins\ProductController@addColor');
-
-Route::resource('admin/colors', 'Admins\ColorController');
-Route::get('admin/vueColors', 'Admins\ColorController@showVueColor')->name('indexColors');
-Route::get('admin/getAllColors', 'Admins\ColorController@getAllColors');
-
-
-Route::resource('admin/sizes', 'Admins\SizeController');
-Route::get('admin/vueSize', 'Admins\SizeController@showVueSize')->name('indexSizes');
-Route::get('admin/getAllSizes', 'Admins\SizeController@getAllSizes');
-
-
-Route::resource('admin/productAttributes', 'Admins\ProductAtributesController');
-Route::get('admin/productAttributes/{id}/{color_id}', 'Admins\ProductAtributesController@getColorImages');
-Route::post('admin/productAttributes/{id}/{color_id}', 'Admins\ProductAtributesController@delete');
-
-Route::resource('admin/discountProgram', 'Admins\DiscountProgramController');
-Route::get('admin/vueDiscountProgram', 'Admins\DiscountProgramController@showVueDiscountProgram')->name('discountProgram');
-
-Route::resource('admin/discountProduct', 'Admins\DiscountProduct');
-Route::get('admin/vueDiscountProduct', 'Admins\DiscountProduct@showVueDiscountProduct')->name('discount');
-Route::get('admin/getAllProduct', 'Admins\DiscountProduct@getAllProduct');
-Route::get('admin/getAllDiscountProgram', 'Admins\DiscountProduct@getAllDiscountProgram');
 
 
 Route::middleware('admin')->group(function () {
@@ -58,6 +26,44 @@ Route::middleware('admin')->group(function () {
         'as' => 'listuser',
         'uses' => 'Admins\UserController@getListUser'
     ]);
+    Route::resource('admin/category', 'Admins\CategoryController');
+	Route::get('admin/vueCategory', 'Admins\CategoryController@showVueCategory')->name('indexCategory');
+	Route::get('admin/getAllCategory', 'Admins\CategoryController@getAllCategory');
+
+	Route::get('admin', function(){
+	    return view('admin.master');
+	});
+
+	Route::resource('admin/products', 'Admins\ProductController');
+	Route::get('admin/vueProducts', 'Admins\ProductController@showVueProduct')->name('indexProducts');
+	Route::get('admin/products/addColors/{id}', 'Admins\ProductController@addColor');
+
+	Route::resource('admin/colors', 'Admins\ColorController');
+	Route::get('admin/vueColors', 'Admins\ColorController@showVueColor')->name('indexColors');
+	Route::get('admin/getAllColors', 'Admins\ColorController@getAllColors');
+
+
+	Route::resource('admin/sizes', 'Admins\SizeController');
+	Route::get('admin/vueSize', 'Admins\SizeController@showVueSize')->name('indexSizes');
+	Route::get('admin/getAllSizes', 'Admins\SizeController@getAllSizes');
+
+
+	Route::resource('admin/productAttributes', 'Admins\ProductAtributesController');
+	Route::get('admin/productAttributes/{id}/{color_id}', 'Admins\ProductAtributesController@getColorImages');
+	Route::post('admin/productAttributes/{id}/{color_id}', 'Admins\ProductAtributesController@delete');
+
+	Route::resource('admin/discountProgram', 'Admins\DiscountProgramController');
+	Route::get('admin/vueDiscountProgram', 'Admins\DiscountProgramController@showVueDiscountProgram')->name('discountProgram');
+
+	Route::resource('admin/discountProduct', 'Admins\DiscountProduct');
+	Route::get('admin/vueDiscountProduct', 'Admins\DiscountProduct@showVueDiscountProduct')->name('discount');
+	Route::get('admin/getAllProduct', 'Admins\DiscountProduct@getAllProduct');
+	Route::get('admin/getAllDiscountProgram', 'Admins\DiscountProduct@getAllDiscountProgram');
+
+	Route::get('admin/index', 'Admins\HomeController@index')->name('indexAdmin');
+	Route::get('admin/getAmountOrder', 'Admins\HomeController@getAmountOrder');
+	Route::get('admin/getAmountProduct', 'Admins\HomeController@getAmountProduct');
+	Route::get('admin/getAmountUser', 'Admins\HomeController@getAmountUser');
 });
 
 Route::resource('customer/products','Customers\ProductController');

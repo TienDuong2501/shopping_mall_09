@@ -20,6 +20,8 @@ use App\Repositories\EloquentRepository\DiscountProductRepository;
 use App\Repositories\InterfaceRepository\DiscountProductInterface;
 use App\Repositories\EloquentRepository\DiscountProgramRepository;
 use App\Repositories\InterfaceRepository\DiscountProgramInterface;
+use App\Repositories\InterfaceRepository\HomeAdminInterfaceRepository;
+use App\Repositories\EloquentRepository\HomeAdminRepository;
 use App\Model\Category;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,12 +35,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        view()->composer(['customers.partials.header'], function($view){
+        view()->composer(['customers.partials.header'], function ($view) {
             $categories = Category::select('id', 'category_name', 'slug', 'parent_id')
                             ->get()
                             ->toArray();
             $view->with([
-                'categories' => $categories
+                'categories' => $categories,
             ]);
         });
     }
@@ -58,5 +60,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProductDetailInterfaceRepository::class, ProductDetailRepository::class);
         $this->app->bind(DiscountProductInterface::class, DiscountProductRepository::class);
         $this->app->bind(DiscountProgramInterface::class, DiscountProgramRepository::class);
+        $this->app->bind(HomeAdminInterfaceRepository::class, HomeAdminRepository::class);
     }
 }

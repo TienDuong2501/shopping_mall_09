@@ -42,7 +42,6 @@ class ColorRepository implements ColorInterfaceRepository
         } else {
             return response()->json(['fail' => 'the color is already exists']);
         }
-        
     }
 
     public function update(array $input, $id)

@@ -19,6 +19,7 @@ class ProductDetailRepository implements ProductDetailInterfaceRepository
         $checkProductAttribute = ProductAttribute::where([
             'color_id' => $input['color_id'],
             'product_id' => $input['product_id'],
+            'size_id' => $input['size_id'],
         ])->get();
         if (count($checkProductAttribute)) {
             return response()->json(['fail' => 'the item is already exits']);
